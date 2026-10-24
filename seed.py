@@ -12,14 +12,12 @@ from app.models import ApaarRegistry, Institution, Program, User
 
 
 def seed_database():
-    print("Initializing database tables...")
+    print("Checking database tables...")
     create_db_and_tables()
 
     with Session(engine) as session:
-        # 1. Seed Institution
-        institution = session.exec(
-            select(Institution).where(Institution.aicte_id == "1-10023456")
-        ).first()
+        # 1. Use existing Institution or create demo one
+        institution = session.exec(select(Institution)).first()
 
         if not institution:
             institution = Institution(
@@ -33,31 +31,32 @@ def seed_database():
             session.commit()
             session.refresh(institution)
             print(f"[+] Seeded Institution: {institution.name} (ID: {institution.id})")
+        else:
+            print(f"[i] Using existing Institution: {institution.name} (ID: {institution.id}, AICTE: {institution.aicte_id})")
 
-        # 2. Seed Academic Program
+        # 2. Check Academic Program for this Institution
         program = session.exec(
-            select(Program).where(
-                Program.institution_id == institution.id,
-                Program.name == "B.Tech Computer Science and Engineering"
-            )
+            select(Program).where(Program.institution_id == institution.id)
         ).first()
 
         if not program:
             program = Program(
                 institution_id=institution.id,
-                name="B.Tech Computer Science and Engineering",
+                course="B.Tech Computer Science and Engineering",
                 level="UG",
                 academic_year="2024-2025",
-                approved_intake=60,
-                supernumerary_cap=15
+                intake=60
             )
             session.add(program)
             session.commit()
             session.refresh(program)
-            print(f"[+] Seeded Program: {program.name} (Approved Intake: {program.approved_intake})")
+            print(f"[+] Seeded Program: {program.course} (Approved Intake: {program.approved_intake})")
+        else:
+            print(f"[i] Using existing Program: {program.course} (Approved Intake: {program.approved_intake})")
 
         # 3. Seed Users for All 3 Roles
         demo_users = [
+
             {
                 "username": "admin",
                 "password": "admin123",

@@ -5,8 +5,8 @@ A unified, tamper-evident student data compliance and credential verification pl
 ---
 
 ## 🛠️ Tech Stack
-- **Backend:** Python 3.11, FastAPI
-- **Database:** SQLModel + SQLite (`apaar.db`)
+- **Backend:** Python 3.11+, FastAPI
+- **Database:** SQLModel + PostgreSQL (Supabase)
 - **Frontend:** Jinja2 Templates, Tailwind CSS (via CDN), Chart.js (via CDN)
 - **Data & Security:** pandas, bcrypt, python-jose (JWT), HMAC-SHA256, qrcode
 
@@ -17,7 +17,8 @@ A unified, tamper-evident student data compliance and credential verification pl
 apaar-platform/
 ├── app/
 │   ├── main.py            # FastAPI app, router registration
-│   ├── database.py        # SQLite engine, session generator
+│   ├── database.py        # PostgreSQL (Supabase) engine, session generator
+
 │   ├── models.py          # SQLModel database tables
 │   ├── auth.py            # Login, JWT cookies, role dependencies
 │   ├── apaar_registry.py  # Mock Central APAAR Registry adapter

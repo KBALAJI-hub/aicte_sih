@@ -1,5 +1,12 @@
+import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
+
+# Ensure root directory is on sys.path for direct execution
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from fastapi import Depends, FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -14,11 +21,13 @@ from app.routers.institution import router as institution_router
 from app.routers.verify import router as verify_router
 
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize SQLite database and tables on startup
+    # Initialize PostgreSQL database and tables on startup
     create_db_and_tables()
     yield
+
 
 
 # Initialize FastAPI application
@@ -63,3 +72,9 @@ async def health_check():
     Basic health check endpoint returning API operational status.
     """
     return {"status": "ok", "platform": "AICTE APAAR Verification"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
+
