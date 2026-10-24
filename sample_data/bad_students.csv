@@ -1,0 +1,4 @@
+apaar_id,student_id,full_name,dob,gender,category,admission_type,admission_year
+123456789,DTU-BAD-001,Faulty Length Student,2004-01-01,MALE,GENERAL,REGULAR,2024
+999999999999,DTU-BAD-002,Ghost Student,2004-02-02,MALE,GENERAL,REGULAR,2024
+100000000001,DTU-BAD-003,Wrong Name Given,2004-05-14,MALE,GENERAL,REGULAR,2024

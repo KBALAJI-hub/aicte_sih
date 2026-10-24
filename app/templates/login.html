@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In | AICTE APAAR Platform{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center py-6 sm:py-12">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex h-12 w-12 bg-indigo-100 text-indigo-700 rounded-xl items-center justify-center font-bold text-2xl mb-3 shadow-inner">
+                🔐
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900">Sign in to your account</h2>
+            <p class="text-xs text-slate-500 mt-1">Access the AICTE APAAR Verification Portal</p>
+        </div>
+
+        <!-- Error Alert -->
+        {% if error %}
+        <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-md">
+            <div class="flex">
+                <div class="flex-shrink-0 text-red-500">
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-xs font-medium text-red-700">{{ error }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Login Form -->
+        <form action="/login" method="POST" class="space-y-5">
+            <div>
+                <label for="username" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    Username
+                </label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    required 
+                    placeholder="e.g. admin or college_admin"
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+                >
+            </div>
+
+            <div>
+                <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    Password
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required 
+                    placeholder="••••••••"
+                    class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+                >
+            </div>
+
+            <button 
+                type="submit" 
+                class="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg shadow transition duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+                Sign In
+            </button>
+        </form>
+
+        <!-- Role Information Helper for Demo -->
+        <div class="mt-8 pt-6 border-t border-slate-100">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 text-center mb-3">
+                Demo Credentials (seed.py)
+            </h4>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="bg-indigo-50 text-indigo-700 p-2 rounded border border-indigo-100">
+                    <span class="block font-semibold">admin</span>
+                    <span class="text-[10px] text-slate-500">AICTE_ADMIN</span>
+                </div>
+                <div class="bg-amber-50 text-amber-700 p-2 rounded border border-amber-100">
+                    <span class="block font-semibold">college_admin</span>
+                    <span class="text-[10px] text-slate-500">INSTITUTION</span>
+                </div>
+                <div class="bg-emerald-50 text-emerald-700 p-2 rounded border border-emerald-100">
+                    <span class="block font-semibold">verifier_tcs</span>
+                    <span class="text-[10px] text-slate-500">VERIFIER</span>
+                </div>
+            </div>
+            <p class="text-[11px] text-slate-400 text-center mt-2">Password for all demo accounts: <code>admin123</code> / <code>college123</code> / <code>verifier123</code></p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
